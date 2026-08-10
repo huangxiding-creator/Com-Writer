@@ -1,0 +1,61 @@
+# 环境变量（密钥）
+.env
+
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.egg-info/
+dist/
+build/
+.eggs/
+
+# 虚拟环境
+venv/
+.venv/
+env/
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# 检查点状态
+.com-writer-state.json
+
+# 日志
+*.log
+logs/
+
+# OS
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# DrissionPage 配置
+configs.ini
+.browser_profile/
+
+# ============================================================
+# 企业内部数据（绝不提交到公开仓库）
+# ============================================================
+
+# 原始想法/会议录音转写稿（含企业内部会议内容）
+01 我的初步想法/
+
+# 总承包事业部 — 全部工作目录（含爬取数据、模板、原始记录、写作成果、初稿定稿）
+02-*/
+
+# 其他业务数据目录
+01-*/
+
+# 配置文件（含内网地址等敏感信息）
+config.ini
+
+# 运行输出和检查点
+output/
+checkpoints/
+
+# PROPOSAL.md（内部提案文档）
+PROPOSAL.md
