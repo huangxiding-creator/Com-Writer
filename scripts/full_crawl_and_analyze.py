@@ -21,12 +21,11 @@ from src.config.loader import Config
 from src.llm.multi_llm import MultiLLMClient
 from src.processors.multi_genre_analyzer import analyze_all_genres, format_synthesis_for_prompt
 from src.utils.logger import get_logger
+from src.config.paths import CRAWL_DIR, REFINE_DIR as STYLE_OUTPUT_DIR
 
 _log = get_logger("scripts.full_crawl")
 
 # ── 配置 ──────────────────────────────────────────────
-CRAWL_DIR = ROOT / "02-1 总承包事业部" / "00 内网文字材料爬取"
-STYLE_OUTPUT_DIR = ROOT / "02-1 总承包事业部" / "01 内部写作成果提炼"
 STYLE_OUTPUT_DIR.mkdir(parents=True, exist_ok=True)
 
 

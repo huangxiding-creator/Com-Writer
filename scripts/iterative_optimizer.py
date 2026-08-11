@@ -27,7 +27,7 @@ from src.writers.docx_writer import write_minutes
 from src.writers.template_engine import analyze_template
 from src.core.models import GeneratedContent
 from src.utils.logger import get_logger
-from src.config.paths import DEFAULT_MINUTES_TEMPLATE, OUTPUT_DIR
+from src.config.paths import DEFAULT_MINUTES_TEMPLATE, OUTPUT_DIR, REFINE_DIR, RAW_RECORD_DIR
 
 _log = get_logger("scripts.optimizer")
 
@@ -47,7 +47,7 @@ def main():
 
     # 加载风格参考
     style_ref = ""
-    v2_path = ROOT / "02-1 总承包事业部/01 内部写作成果提炼/writing_style_reference_v2.txt"
+    v2_path = REFINE_DIR / "writing_style_reference_v2.txt"
     if v2_path.exists():
         style_ref = v2_path.read_text(encoding="utf-8")
         _log.info("已加载细分体裁风格参考: %d 字", len(style_ref))
@@ -56,7 +56,7 @@ def main():
     transcript_path = ROOT / "data/input/transcript.docx"
     if not transcript_path.exists():
         # 自动查找
-        record_dir = ROOT / "02-1 总承包事业部/03 原始记录资料"
+        record_dir = RAW_RECORD_DIR
         docx_files = sorted(record_dir.glob("*.docx"))
         if docx_files:
             transcript_path = docx_files[-1]

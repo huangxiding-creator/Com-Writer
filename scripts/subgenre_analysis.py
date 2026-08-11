@@ -17,11 +17,9 @@ from src.config.loader import Config
 from src.llm.multi_llm import MultiLLMClient
 from src.processors.subgenre_analyzer import analyze_all_subgenres
 from src.utils.logger import get_logger
+from src.config.paths import REFINE_DIR as STYLE_OUTPUT_DIR, CRAWL_DIR
 
 _log = get_logger("scripts.subgenre")
-
-STYLE_OUTPUT_DIR = ROOT / "02-1 总承包事业部" / "01 内部写作成果提炼"
-CRAWL_DIR = ROOT / "02-1 总承包事业部" / "00 内网文字材料爬取"
 
 
 def main():

@@ -24,8 +24,7 @@ from ..utils.logger import get_logger
 _log = get_logger("processor.post_processor")
 
 # ── 项目根目录 ──
-_ROOT = Path(__file__).resolve().parent.parent.parent
-_STYLE_DIR = _ROOT / "02-1 总承包事业部" / "01 内部写作成果提炼"
+from ..config.paths import REFINE_DIR as _STYLE_DIR
 
 
 # ═══════════════════════════════════════════

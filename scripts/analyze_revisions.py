@@ -22,11 +22,9 @@ from src.config.loader import Config
 from src.llm.multi_llm import MultiLLMClient
 from src.llm.json_utils import extract_json
 from src.utils.logger import get_logger
+from src.config.paths import ITERATION_DIR as BASE_DIR, REFINE_DIR as OUTPUT_DIR
 
 _log = get_logger("scripts.revision_analysis")
-
-BASE_DIR = ROOT / "02-1 总承包事业部" / "05 成果迭代优化"
-OUTPUT_DIR = ROOT / "02-1 总承包事业部" / "01 内部写作成果提炼"
 
 
 def main():

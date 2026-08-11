@@ -61,6 +61,9 @@ cp .env.example .env
 编辑 `.env`：
 
 ```ini
+# 工作目录名（按企业/部门组织）
+COM_WRITER_WORKSPACE=workspace
+
 ZHIPU_API_KEY=your_zhipu_api_key
 DEEPSEEK_API_KEY=your_deepseek_api_key
 INTRANET_TOKEN=your_intranet_token
@@ -153,7 +156,7 @@ Com-Writer/
 │   ├── technical_proposal.py       #   技术方案（预留）
 │   └── registry.py                 #   插件注册表
 │
-└── 02-1 总承包事业部/              # 工作目录（按企业/部门组织）
+└── workspace/                      # 工作目录（通过 .env 的 COM_WRITER_WORKSPACE 配置）
     ├── 00 内网文字材料爬取/         #   爬取的网页内容
     ├── 01 内部写作成果提炼/         #   提炼的写作方法论
     ├── 02 内部写作体裁模板/         #   Word 模板文件
@@ -250,7 +253,7 @@ class MyPlugin(WritingPlugin):
 
 ## 实际效果
 
-以黄藏寺水利枢纽工程锚索会议（90分钟录音，26000字转写稿）为例：
+以某水利枢纽工程专题会议（90分钟录音，26000字转写稿）为例：
 
 | 维度 | 手工方式 | Com-Writer |
 |------|----------|------------|

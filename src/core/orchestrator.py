@@ -17,7 +17,7 @@ from pathlib import Path
 from typing import Optional
 
 from ..config.loader import Config
-from ..config.paths import DEFAULT_MINUTES_TEMPLATE, RAW_RECORD_DIR, OUTPUT_DIR, PROJECT_ROOT
+from ..config.paths import DEFAULT_MINUTES_TEMPLATE, RAW_RECORD_DIR, OUTPUT_DIR, REFINE_DIR
 from ..llm.multi_llm import MultiLLMClient
 from ..notify.wecom import WeComNotifier, create_notifier
 from ..readers.docx_reader import read_docx
@@ -349,7 +349,7 @@ class Orchestrator:
 
         # 加载修改模式指南（如果存在）
         revision_guide = ""
-        guide_path = PROJECT_ROOT / "02-1 总承包事业部" / "01 内部写作成果提炼" / "revision_guide_definitive.txt"
+        guide_path = REFINE_DIR / "revision_guide_definitive.txt"
         if guide_path.exists():
             revision_guide = guide_path.read_text(encoding="utf-8")
             _log.info("已加载修改模式指南: %d 字", len(revision_guide))

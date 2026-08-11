@@ -34,7 +34,7 @@ from src.writers.docx_writer import write_minutes
 from src.writers.template_engine import analyze_template
 from src.core.models import GeneratedContent, MeetingAnalysis, Topic, KeyDataPoint, ActionItem
 from src.utils.logger import get_logger
-from src.config.paths import DEFAULT_MINUTES_TEMPLATE, OUTPUT_DIR
+from src.config.paths import DEFAULT_MINUTES_TEMPLATE, OUTPUT_DIR, REFINE_DIR, RAW_RECORD_DIR
 
 _log = get_logger("scripts.optimizer_v2")
 
@@ -141,19 +141,19 @@ def main():
 
     # 加载风格参考
     style_ref = ""
-    v2_path = ROOT / "02-1 总承包事业部/01 内部写作成果提炼/writing_style_reference_v2.txt"
+    v2_path = REFINE_DIR / "writing_style_reference_v2.txt"
     if v2_path.exists():
         style_ref = v2_path.read_text(encoding="utf-8")
         _log.info("已加载细分体裁风格参考: %d 字", len(style_ref))
     else:
-        v1_path = ROOT / "02-1 总承包事业部/01 内部写作成果提炼/writing_style_reference.txt"
+        v1_path = REFINE_DIR / "writing_style_reference.txt"
         if v1_path.exists():
             style_ref = v1_path.read_text(encoding="utf-8")
             _log.info("已加载风格参考v1: %d 字", len(style_ref))
 
     # 加载领导审稿修改模式指南
     revision_guide = ""
-    guide_path = ROOT / "02-1 总承包事业部/01 内部写作成果提炼/revision_guide_definitive.txt"
+    guide_path = REFINE_DIR / "revision_guide_definitive.txt"
     if guide_path.exists():
         revision_guide = guide_path.read_text(encoding="utf-8")
         _log.info("已加载领导修改模式指南: %d 字", len(revision_guide))
@@ -161,7 +161,7 @@ def main():
     # 读取转写稿
     transcript_path = ROOT / "data/input/transcript.docx"
     if not transcript_path.exists():
-        record_dir = ROOT / "02-1 总承包事业部/03 原始记录资料"
+        record_dir = RAW_RECORD_DIR
         docx_files = sorted(record_dir.glob("*.docx"))
         if docx_files:
             transcript_path = docx_files[-1]

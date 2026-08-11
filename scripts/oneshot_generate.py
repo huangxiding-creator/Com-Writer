@@ -30,13 +30,13 @@ from src.writers.docx_writer import write_minutes
 from src.writers.template_engine import analyze_template
 from src.core.models import GeneratedContent
 from src.utils.logger import get_logger
-from src.config.paths import DEFAULT_MINUTES_TEMPLATE, OUTPUT_DIR
+from src.config.paths import DEFAULT_MINUTES_TEMPLATE, OUTPUT_DIR, REFINE_DIR, RAW_RECORD_DIR
 
 _log = get_logger("scripts.oneshot")
 
 OUTPUT_PATH = OUTPUT_DIR / "meeting_minutes_output.docx"
 
-STYLE_DIR = ROOT / "02-1 总承包事业部" / "01 内部写作成果提炼"
+STYLE_DIR = REFINE_DIR
 CHECKPOINT_DIR = OUTPUT_DIR / "checkpoints"
 ANALYSIS_CHECKPOINT = CHECKPOINT_DIR / "phase1_analysis.json"
 
@@ -223,7 +223,7 @@ def _find_transcript() -> Path:
         if p.exists():
             return p
     # 自动查找
-    record_dir = ROOT / "02-1 总承包事业部/03 原始记录资料"
+    record_dir = RAW_RECORD_DIR
     docx_files = sorted(record_dir.glob("*.docx"))
     if docx_files:
         return docx_files[-1]
