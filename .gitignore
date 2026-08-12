@@ -7,7 +7,10 @@ __pycache__/
 *$py.class
 *.egg-info/
 dist/
-build/
+build/pyinstaller_cache/
+build/__pycache__/
+build/*.exe
+build/*.zip
 .eggs/
 
 # 虚拟环境
@@ -23,6 +26,11 @@ env/
 
 # 检查点状态
 .com-writer-state.json
+.com-writer-workspaces.json
+
+# 构建输出
+build/pyinstaller_cache/
+build/__pycache__/
 
 # 日志
 *.log
@@ -54,9 +62,20 @@ workspace/
 # 配置文件（含内网地址等敏感信息）
 config.ini
 
+# 企业专用脚本（含项目名称等敏感信息）
+scripts/generate_930_minutes.py
+
+# 优化建议录音转写稿（含企业内部讨论内容）
+03 优化提升建议/
+
 # 运行输出和检查点
 output/
 checkpoints/
 
 # PROPOSAL.md（内部提案文档）
 PROPOSAL.md
+
+# 临时文件
+_tmp_*.json
+_tmp_*.txt
+*.tmp

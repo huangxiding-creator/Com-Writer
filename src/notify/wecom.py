@@ -1,10 +1,13 @@
 """企业微信通知 —— Webhook 推送（借鉴 We-AIPO wecom.py）。
 
-支持 markdown、text、image 三种消息类型。
+支持 markdown、text、image、file 四种消息类型。
 核心原则：通知失败绝不阻塞主流程。
 """
 from __future__ import annotations
 
+import base64
+import hashlib
+from pathlib import Path
 from typing import Optional
 
 import requests
@@ -71,6 +74,51 @@ class WeComNotifier:
         """发送错误告警。"""
         md = f"## ❌ 任务失败: {task_name}\n\n```\n{error_msg[:500]}\n```"
         return self.send_markdown(md)
+
+    def send_image_file(self, image_path: str | Path) -> bool:
+        """发送图片（自动转 base64 + md5）。"""
+        path = Path(image_path)
+        if not path.exists():
+            _log.warning("图片不存在: %s", path)
+            return False
+        raw = path.read_bytes()
+        b64 = base64.b64encode(raw).decode("ascii")
+        md5 = hashlib.md5(raw).hexdigest()
+        body = {
+            "msgtype": "image",
+            "image": {"base64": b64, "md5": md5},
+        }
+        return self._send(body)
+
+    def send_file(self, file_path: str | Path, media_id: str = "") -> bool:
+        """发送文件消息。
+
+        需先通过企业微信 media upload API 获取 media_id。
+        如未提供 media_id，仅发送文件名通知。
+        """
+        path = Path(file_path)
+        if media_id:
+            body = {
+                "msgtype": "file",
+                "file": {"media_id": media_id},
+            }
+            return self._send(body)
+        # 无 media_id：发送文件名提醒
+        size_kb = path.stat().st_size / 1024 if path.exists() else 0
+        return self.send_text(
+            f"📎 文件已生成: {path.name} ({size_kb:.0f}KB)\n"
+            f"📂 路径: {path.parent}"
+        )
+
+    def send_output_files(self, files: list[Path]) -> None:
+        """推送写作成果通知（文件名列表 + 完成消息）。"""
+        if not files:
+            return
+        names = "\n".join(f"📄 {Path(f).name}" for f in files)
+        self.send_markdown(
+            f"## ✅ 写作完成\n\n{names}\n\n"
+            f"> 企业写手 Com-Writer"
+        )
 
     def _send(self, body: dict) -> bool:
         """实际发送请求。失败不抛异常。"""
