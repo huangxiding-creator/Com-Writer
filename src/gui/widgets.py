@@ -128,7 +128,7 @@ class FileMultiSelect(QWidget):
         for f in files:
             item = QListWidgetItem(f.name)
             item.setFlags(item.flags() | Qt.ItemFlag.ItemIsUserCheckable)
-            item.setCheckState(Qt.CheckState.Checked)
+            item.setCheckState(Qt.CheckState.Unchecked)
             item.setData(Qt.ItemDataRole.UserRole, str(f))
             self._list.addItem(item)
 

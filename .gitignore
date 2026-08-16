@@ -64,6 +64,7 @@ config.ini
 
 # 企业专用脚本（含项目名称等敏感信息）
 scripts/generate_930_minutes.py
+scripts/optimize_qsj.py
 
 # 优化建议录音转写稿（含企业内部讨论内容）
 03 优化提升建议/
